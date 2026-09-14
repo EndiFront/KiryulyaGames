@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Пенальти</title>
+  </head>
+  <body>
+    <div class="game-stage">
+      <div class="ui-top">
+        <div class="attempts-indicator" id="attempts-container">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+
+      <div class="stadium">
+        <div id="keeper" class="keeper"></div>
+        <div id="ball" class="ball"></div>
+        <div id="result-msg" class="result-msg"></div>
+      </div>
+
+      <div class="controls">
+        <button id="btn-left" class="shoot-btn">Влево</button>
+        <button id="btn-right" class="shoot-btn">Вправо</button>
+      </div>
+
+      <div id="overlay" class="overlay">
+        <div class="modal">
+          <h1 id="modal-title">Пенальти</h1>
+          <p id="modal-desc">Забей как можно больше голов из 5 попыток!</p>
+          <button id="start-btn" class="btn">Начать игру</button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

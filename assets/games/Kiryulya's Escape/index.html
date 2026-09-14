@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Побег из тюрьмы</title>
+  </head>
+  <body>
+    <div class="game-stage">
+      <div class="ui-top">
+        <div class="ui-badge">
+          <span>Уровень:</span>
+          <div id="level-val" class="val-box">1</div>
+        </div>
+      </div>
+
+      <div class="maze-container">
+        <div id="maze" class="maze-grid"></div>
+      </div>
+
+      <div class="controls">
+        <div class="ctrl-row">
+          <button id="btn-up" class="ctrl-btn">▲</button>
+        </div>
+        <div class="ctrl-row">
+          <button id="btn-left" class="ctrl-btn">▲</button>
+          <button id="btn-down" class="ctrl-btn">▼</button>
+          <button id="btn-right" class="ctrl-btn">▲</button>
+        </div>
+      </div>
+    </div>
+    <!-- Модальное окно победы -->
+    <div id="win-modal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">Побег успешен!</div>
+        <div class="modal-body">
+          <p id="modal-msg">Уровень пройден.</p>
+        </div>
+        <button id="modal-next-btn" class="modal-btn">Следующий уровень</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

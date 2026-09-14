@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Какой ты Кирюля?</title>
+  </head>
+  <body>
+    <div class="quiz-card">
+      <div id="quiz-screen">
+        <div class="progress-bar">
+          <div id="progress" class="progress-fill"></div>
+        </div>
+        <div class="step-counter" id="step-counter">Вопрос 1 из 10</div>
+
+        <h2 id="question-text" class="question-text">Загрузка вопроса...</h2>
+
+        <div class="options-grid" id="options-container">
+          <!-- Кнопки ответов -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Модальное окно результата -->
+    <div id="result-overlay" class="overlay hidden">
+      <div class="modal-result">
+        <span class="result-subtitle">Твой результат:</span>
+
+        <div class="result-image-wrapper">
+          <img id="result-img" src="" alt="Кирюля" class="result-img hidden" />
+          <div id="result-placeholder" class="result-placeholder">
+            <span>Фото появится здесь</span>
+          </div>
+        </div>
+
+        <h1 id="result-title" class="result-title">Загрузка...</h1>
+
+        <!-- Добавь эту строку -->
+        <p id="result-desc" class="result-desc"></p>
+
+        <button id="restart-btn" class="btn-restart">Пройти снова</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

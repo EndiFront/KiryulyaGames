@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Поймай Кирюля</title>
+  </head>
+  <body>
+    <div class="game-stage">
+      <!-- Верхний интерфейс -->
+      <div class="ui-top">
+        <div class="ui-badge">
+          <span>Осталось времени:</span>
+          <div id="timer" class="val-box">30</div>
+        </div>
+        <div class="ui-badge-group">
+          <div class="ui-badge">
+            <span>Рекорд:</span>
+            <div id="high-score" class="val-box">0</div>
+          </div>
+          <div class="ui-badge">
+            <span>Очки:</span>
+            <div id="score" class="val-box">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Игровое поле -->
+      <div class="grid" id="grid">
+        <script>
+          const grid = document.getElementById('grid');
+          let holesHtml = '';
+          for (let i = 0; i < 9; i++) {
+            holesHtml += `
+              <div class="hole-wrapper">
+                <img class="mole" src="persona.png" alt="Персонаж">
+              </div>
+            `;
+          }
+          grid.innerHTML = holesHtml;
+        </script>
+      </div>
+
+      <!-- Модальное окно -->
+      <div id="overlay" class="overlay">
+        <div class="card">
+          <h1 id="modal-title">Поймай Кирюля</h1>
+          <p id="modal-desc">Нажмите кнопку ниже, чтобы начать игру.</p>
+          <button id="start-btn" class="btn">Нажмите для начала</button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

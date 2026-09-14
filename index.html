@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Кирюля Games</title>
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="splash-screen" id="splashScreen">
+        <div class="splash-logo">🎮</div>
+        <div class="splash-title">Кирюля Games</div>
+        <div class="splash-subtitle">Загрузка мини-игр...</div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+      </div>
+
+      <main class="games-grid" id="gamesGrid"></main>
+    </div>
+
+    <!-- Вынесено из app-container -->
+    <div class="game-overlay" id="gameOverlay">
+      <button class="close-game-btn" onclick="closeGame()">✕</button>
+      <iframe id="gameIframe" src="" frameborder="0"></iframe>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

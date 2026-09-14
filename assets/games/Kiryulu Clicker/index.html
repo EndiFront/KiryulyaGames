@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Пиксельный Кликер</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="config.css" />
+  </head>
+  <body>
+    <div class="progress_ads" id="progress_ads">
+      <h3>Загрузка рекламы...</h3>
+    </div>
+
+    <div class="main-layout">
+      <!-- Левая часть на ПК / Верхняя часть на мобилке -->
+      <div class="hero-area">
+        <div class="progress-bar" id="progress-bar">
+          <div class="score">
+            <img src="res/boosts/14.png" id="diamond" alt="Diamond" />
+            <h3 id="h3">0</h3>
+          </div>
+          <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="hero-section">
+          <button id="hero-b" onclick="onHeroClick(event)">
+            <img id="hero" alt="Hero" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Правая часть на ПК / Нижняя часть на мобилке -->
+      <div class="shop-section">
+        <!-- Табы переключения для всех устройств -->
+        <div class="tab-buttons">
+          <button id="tab-boosts" class="tab-btn active" onclick="switchTab('boosts')">Инструменты</button>
+          <!-- <button id="tab-heroes" class="tab-btn" onclick="switchTab('heroes')">Скины</button> -->
+        </div>
+
+        <div class="container">
+          <ul class="list" id="list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>

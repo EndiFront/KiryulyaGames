@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Найди пару</title>
+  </head>
+  <body>
+    <div class="game-stage">
+      <div class="ui-top">
+        <div class="ui-badge">
+          <span>Ходы:</span>
+          <div id="moves" class="val-box">0</div>
+        </div>
+        <div class="ui-badge">
+          <span>Пары:</span>
+          <div id="matches" class="val-box">0 / 10</div>
+        </div>
+      </div>
+
+      <!-- Исправлен класс на cards-grid -->
+      <div class="cards-grid" id="grid"></div>
+
+      <div id="overlay" class="overlay">
+        <div class="card-modal">
+          <h1 id="modal-title">Найди пару</h1>
+          <p id="modal-desc">
+            Открывай карточки и находи одинаковые изображения.
+          </p>
+          <button id="start-btn" class="btn">Начать игру</button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
