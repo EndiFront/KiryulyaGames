@@ -6,6 +6,7 @@ const games = [
     bgClass: "bg-amber",
     cover: "assets/img/Kiryulu Whack a Mole.png",
     path: "assets/games/Kiryulu Whack a Mole/index.html",
+    orientation: "portrait",
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ const games = [
     bgClass: "bg-purple",
     cover: "assets/img/What Kiryalya's are you.png",
     path: "assets/games/What Kiryalya's are you/index.html",
+    orientation: "portrait",
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ const games = [
     bgClass: "bg-teal",
     cover: "assets/img/Kiryulu vs Monstr.png",
     path: "assets/games/Kiryulu vs Monstr/index.html",
+    orientation: "landscape",
   },
   {
     id: 4,
@@ -29,6 +32,7 @@ const games = [
     bgClass: "bg-blue",
     cover: "assets/img/Find a Couple Kiryulu.png",
     path: "assets/games/Find a Couple Kiryulu/index.html",
+    orientation: "portrait",
   },
   {
     id: 5,
@@ -37,6 +41,7 @@ const games = [
     bgClass: "bg-rose",
     cover: "assets/img/Kiryulu Clicker.png",
     path: "assets/games/Kiryulu Clicker/index.html",
+    orientation: "portrait",
   },
   {
     id: 6,
@@ -44,6 +49,7 @@ const games = [
     bgClass: "bg-yellow",
     cover: "assets/img/Kiryulya's Tag.png",
     path: "assets/games/Kiryulya's Tag/index.html",
+    orientation: "portrait",
   },
   {
     id: 7,
@@ -51,6 +57,7 @@ const games = [
     bgClass: "bg-green",
     cover: "assets/img/Kiryulya's Escape.png",
     path: "assets/games/Kiryulya's Escape/index.html",
+    orientation: "portrait",
   },
   {
     id: 8,
@@ -58,6 +65,7 @@ const games = [
     bgClass: "bg-violet",
     cover: "assets/img/Kiryulu Penalty.png",
     path: "assets/games/Kiryulu Penalty/index.html",
+    orientation: "landscape",
   },
 ];
 
@@ -109,7 +117,7 @@ function openGame(id) {
       .requestFullscreen()
       .then(() => {
         if (screen.orientation && screen.orientation.lock) {
-          screen.orientation.lock("landscape").catch(() => {});
+          screen.orientation.lock(game.orientation).catch(() => {});
         }
       })
       .catch(() => {});
@@ -124,10 +132,15 @@ function closeGame() {
   overlay.classList.remove("active");
   document.body.style.overflow = "";
 
+  if (screen.orientation && screen.orientation.unlock) {
+    screen.orientation.unlock();
+  }
+
   if (document.fullscreenElement) {
     document.exitFullscreen().catch(() => {});
   }
 }
+
 window.addEventListener("DOMContentLoaded", () => {
   renderCards();
 
