@@ -1,14 +1,14 @@
 const images = [
-  "img/img1.png",
-  "img/img2.png",
-  "img/img3.png",
-  "img/img4.png",
-  "img/img5.png",
-  "img/img6.png",
-  "img/img7.png",
-  "img/img8.png",
-  "img/img9.png",
-  "img/img10.png"
+  "img/img1.jpg",
+  "img/img2.jpg",
+  "img/img3.jpg",
+  "img/img4.jpg",
+  "img/img5.jpg",
+  "img/img6.jpg",
+  "img/img7.jpg",
+  "img/img8.jpg",
+  "img/img9.jpg",
+  "img/img10.jpg"
 ];
 
 let cardsData = [];
