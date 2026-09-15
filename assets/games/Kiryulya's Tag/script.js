@@ -130,35 +130,63 @@ function renderBoard() {
 function makeTileDraggable(tile) {
   let startX = 0;
   let startY = 0;
-  let initialLeft = 0;
-  let initialTop = 0;
   let isDragging = false;
   let allowedDirection = null;
   let maxDragDistance = 0;
+  let chainTiles = [];
 
   const onPointerDown = (e) => {
     const r = parseInt(tile.dataset.row, 10);
     const c = parseInt(tile.dataset.col, 10);
 
-    const rowDiff = emptyPos.row - r;
-    const colDiff = emptyPos.col - c;
-    const isAdjacent = Math.abs(rowDiff) + Math.abs(colDiff) === 1;
+    // Плитка должна быть в одном ряду или одном столбце с пустой ячейкой
+    const isSameRow = r === emptyPos.row;
+    const isSameCol = c === emptyPos.col;
 
-    if (!isAdjacent) return;
+    if (!isSameRow && !isSameCol) return;
 
-    if (rowDiff === 1) allowedDirection = "down";
-    else if (rowDiff === -1) allowedDirection = "up";
-    else if (colDiff === 1) allowedDirection = "right";
-    else if (colDiff === -1) allowedDirection = "left";
+    chainTiles = [];
+
+    // Собираем все плитки между кликнутой и пустой ячейкой
+    if (isSameRow) {
+      const colStep = c < emptyPos.col ? 1 : -1;
+      for (let currCol = c; currCol !== emptyPos.col; currCol += colStep) {
+        const el = document.querySelector(`.tile[data-row='${r}'][data-col='${currCol}']`);
+        if (el) {
+          chainTiles.push({
+            el: el,
+            initialLeft: el.offsetLeft,
+            initialTop: el.offsetTop,
+            row: r,
+            col: currCol
+          });
+        }
+      }
+      allowedDirection = c < emptyPos.col ? "right" : "left";
+    } else if (isSameCol) {
+      const rowStep = r < emptyPos.row ? 1 : -1;
+      for (let currRow = r; currRow !== emptyPos.row; currRow += rowStep) {
+        const el = document.querySelector(`.tile[data-row='${currRow}'][data-col='${c}']`);
+        if (el) {
+          chainTiles.push({
+            el: el,
+            initialLeft: el.offsetLeft,
+            initialTop: el.offsetTop,
+            row: currRow,
+            col: c
+          });
+        }
+      }
+      allowedDirection = r < emptyPos.row ? "down" : "up";
+    }
+
+    if (chainTiles.length === 0) return;
 
     isDragging = true;
-    tile.classList.add("dragging");
+    chainTiles.forEach((item) => item.el.classList.add("dragging"));
 
     startX = e.clientX || e.touches[0].clientX;
     startY = e.clientY || e.touches[0].clientY;
-
-    initialLeft = tile.offsetLeft;
-    initialTop = tile.offsetTop;
     maxDragDistance = tile.offsetWidth + 6;
 
     document.addEventListener("pointermove", onPointerMove);
@@ -188,34 +216,49 @@ function makeTileDraggable(tile) {
       deltaX = 0;
     }
 
-    tile.style.left = `${initialLeft + deltaX}px`;
-    tile.style.top = `${initialTop + deltaY}px`;
+    chainTiles.forEach((item) => {
+      item.el.style.left = `${item.initialLeft + deltaX}px`;
+      item.el.style.top = `${item.initialTop + deltaY}px`;
+    });
   };
 
   const onPointerUp = () => {
     if (!isDragging) return;
     isDragging = false;
-    tile.classList.remove("dragging");
+    chainTiles.forEach((item) => item.el.classList.remove("dragging"));
 
     document.removeEventListener("pointermove", onPointerMove);
     document.removeEventListener("pointerup", onPointerUp);
 
-    const currentLeft = tile.offsetLeft;
-    const currentTop = tile.offsetTop;
-    const movedX = Math.abs(currentLeft - initialLeft);
-    const movedY = Math.abs(currentTop - initialTop);
+    const firstItem = chainTiles[0];
+    const movedX = Math.abs(firstItem.el.offsetLeft - firstItem.initialLeft);
+    const movedY = Math.abs(firstItem.el.offsetTop - firstItem.initialTop);
 
-    const threshold = maxDragDistance * 0.4;
-
-    const r = parseInt(tile.dataset.row, 10);
-    const c = parseInt(tile.dataset.col, 10);
+    const threshold = maxDragDistance * 0.3;
 
     if (movedX > threshold || movedY > threshold) {
-      boardState[emptyPos.row][emptyPos.col] = boardState[r][c];
-      boardState[r][c] = 0;
-      emptyPos = { row: r, col: c };
+      // Перемещаем плитку за плиткой в сторону пустой ячейки
+      const targetRow = parseInt(tile.dataset.row, 10);
+      const targetCol = parseInt(tile.dataset.col, 10);
 
-      moves++;
+      const countMoved = chainTiles.length;
+
+      if (allowedDirection === "right" || allowedDirection === "left") {
+        const step = allowedDirection === "right" ? 1 : -1;
+        for (let c = emptyPos.col; c !== targetCol; c -= step) {
+          boardState[emptyPos.row][c] = boardState[emptyPos.row][c - step];
+        }
+      } else {
+        const step = allowedDirection === "down" ? 1 : -1;
+        for (let r = emptyPos.row; r !== targetRow; r -= step) {
+          boardState[r][emptyPos.col] = boardState[r - step][emptyPos.col];
+        }
+      }
+
+      boardState[targetRow][targetCol] = 0;
+      emptyPos = { row: targetRow, col: targetCol };
+
+      moves += countMoved;
       movesEl.textContent = moves;
       playSlideSound();
 
@@ -225,7 +268,9 @@ function makeTileDraggable(tile) {
         setTimeout(endGame, 300);
       }
     } else {
-      setTilePosition(tile, r, c);
+      chainTiles.forEach((item) => {
+        setTilePosition(item.el, item.row, item.col);
+      });
     }
   };
 
