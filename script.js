@@ -22,8 +22,9 @@ const games = [
     title: "Кирюля против монстров",
     tagColor: "badge-emerald",
     bgClass: "bg-teal",
+    tag: "На доработке",
     cover: "assets/img/Kiryulu vs Monstr.png",
-    path: "assets/games/Kiryulu vs Monstr/index.html",
+    path: "",
     orientation: "landscape",
   },
   {
